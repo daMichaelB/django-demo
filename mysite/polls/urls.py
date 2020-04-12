@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+app_name = 'polls'  # namespace for django to differentiate urls with same name in different apps
 urlpatterns = [
     path('', views.index, name='index'),
     # ex: /polls/5
