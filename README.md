@@ -1,9 +1,15 @@
 # Django Cheatsheet
 
 ## Create Project
+```
 django-admin startproject mysite
+```
 
-django-admin runserver
+To complete the project setup, you need to create the tables associated with the models of the applications listed in `settings.py` : `INSTALLED_APPS`.
+
+```
+python manage.py migrate
+```
 
 ## Run Server
 ```
@@ -25,8 +31,9 @@ python manage.py migrate
 
 ## migrate initial database setup for new app (create initial tables)
 ```
-python manage.py makemigrations polls
-python manage.py migrate
+python manage.py makemigrations polls  # create migration file
+python manage.py sqlmigrate polls 0001  # view all sql commands
+python manage.py migrate # apply migration
 ```
 
 ## interact with Database-Api

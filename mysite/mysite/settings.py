@@ -25,12 +25,14 @@ SECRET_KEY = 'c=z%vh+pv3*4fhxie@1r!3o6!@b2&d9e@d5^$cy#pu^28(4q)t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# TODO: add production host here once it goes to be released
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'blog.apps.BlogConfig',
     'pages.apps.PagesConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
