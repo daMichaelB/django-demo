@@ -50,6 +50,9 @@ http://127.0.0.1:8000/admin/
 
 Once you have created your data models, Django gives you a free API to interact with them.
 
+`objects` is the default manager of every model that retrieves all objects in the database. 
+However, you can also define custom managers for your models.
+
 ## Interact with Database-Api
 
 ### start Django shell
@@ -99,3 +102,13 @@ Delete objects
 post = Post.objects.get(id=1)
 post.delete()
 ```
+
+## Model Managers
+
+There are two ways to add or customize managers for your models: 
+* you can add extra manager methods to an existing manager
+* create a new manager by modifying the initial QuerySet that the manager returns. 
+
+> The first method provides you with a QuerySet API such as `Post.objects.my_manager()`
+> The latter provides you with `Post.my_manager.all()`. 
+>The manager will allow you to retrieve posts using `Post.published.all()`
