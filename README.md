@@ -123,3 +123,22 @@ All the logic to return the desired response goes inside the view.
 Template tags control the rendering of the template and look like `{% tag %}`
 
 You can see all built-in template tags and filters at https://docs.djangoproject.com/en/3.0/ref/templates/builtins/.
+
+### Templates
+
+`{% load static %}` tells Django to load the static template tags that are provided by the `django.contrib.staticfiles`
+
+---
+
+After loading them, you are able to use the `{% static %}` template tag throughout this template. 
+With this template tag, you can include the static files, such as the blog.css
+
+---
+
+`{% block %}` tags. These tell Django that you want to define a block in that area. 
+Templates that inherit from this template can fill in the blocks with content. 
+You have defined a block called `title` and a block called `content`
+
+---
+
+With the `{% extends %}` template tag, you tell Django to inherit from the `blog/base.html`
