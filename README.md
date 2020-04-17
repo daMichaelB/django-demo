@@ -30,15 +30,10 @@ python manage.py migrate
 ```
 
 ## migrate initial database setup for new app (create initial tables)
-```
+```bash
 python manage.py makemigrations polls  # create migration file
 python manage.py sqlmigrate polls 0001  # view all sql commands
 python manage.py migrate # apply migration
-```
-
-## interact with Database-Api
-```
-python manage.py shell
 ```
 
 ## create admin user
@@ -46,6 +41,61 @@ python manage.py shell
 python manage.py createsuperuser
 ```
 
-# Templates
+## Use the admin panel
+```
+http://127.0.0.1:8000/admin/
+```
 
-https://docs.djangoproject.com/en/3.0/topics/templates/
+# Database Interaction / QuerySets
+
+Once you have created your data models, Django gives you a free API to interact with them.
+
+## Interact with Database-Api
+
+### start Django shell
+```bash
+python manage.py shell
+```
+
+### Use DB Api 
+
+Create a new Blog Post
+
+```python
+from django.contrib.auth.models import User
+from blog.models import Post
+user = User.objects.get(username='admin')
+post = Post(title='Another post',slug='another-post',body='Post body.',author=user)
+post.save()
+```
+
+Retrieving objects:
+
+```python
+all_posts = Post.objects.all()
+```
+
+Filter objects
+
+```python
+Post.objects.filter(publish__year=2020, author__username='admin')
+# is the same as
+Post.objects.filter(publish__year=2020) \
+            .filter(author__username='admin')
+```
+
+Filter and exclude objects
+```python
+Post.objects.filter(publish__year=2020).exclude(title__startswith='Why')
+```
+
+Order a set of objects
+```python
+Post.objects.order_by('title')
+```
+
+Delete objects
+```python
+post = Post.objects.get(id=1)
+post.delete()
+```
