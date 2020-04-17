@@ -112,3 +112,14 @@ There are two ways to add or customize managers for your models:
 > The first method provides you with a QuerySet API such as `Post.objects.my_manager()`
 > The latter provides you with `Post.my_manager.all()`. 
 >The manager will allow you to retrieve posts using `Post.published.all()`
+
+# Views
+
+A Django view is just a Python function that receives a web request and returns a web response. 
+All the logic to return the desired response goes inside the view.
+
+### Template Tags
+
+Template tags control the rendering of the template and look like `{% tag %}`
+
+You can see all built-in template tags and filters at https://docs.djangoproject.com/en/3.0/ref/templates/builtins/.
