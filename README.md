@@ -142,3 +142,24 @@ You have defined a block called `title` and a block called `content`
 ---
 
 With the `{% extends %}` template tag, you tell Django to inherit from the `blog/base.html`
+
+### Class Based Views
+
+```python
+# function based view
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/detail.html', {'question': question})
+```
+
+```python
+# class based view
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+```
+
+> Class-based views offer advantages over function-based views for some use cases. 
+>They have the following features:          
+> * Organizing code related to HTTP methods, such as GET, POST, or PUT, in separate methods, instead of using conditional branching
+> * Using multiple inheritance to create reusable view classes (also known as mixins)

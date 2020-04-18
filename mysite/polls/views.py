@@ -10,6 +10,11 @@ from .models import Question, Choice
 
 
 class IndexView(generic.ListView):
+    """
+    Class-based views are an alternative way to implement views as Python objects instead of functions.
+    Since a view is a callable that takes a web request and returns a web response,
+    you can also define your views as class methods.
+    """
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
