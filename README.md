@@ -163,3 +163,10 @@ class DetailView(generic.DetailView):
 >They have the following features:          
 > * Organizing code related to HTTP methods, such as GET, POST, or PUT, in separate methods, instead of using conditional branching
 > * Using multiple inheritance to create reusable view classes (also known as mixins)
+
+# Forms
+
+Django comes with two base classes to build forms:
+* **Form**: Allows you to build standard forms
+* **ModelForm**: Allows you to build forms tied to model instances
+
