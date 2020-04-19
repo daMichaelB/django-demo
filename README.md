@@ -174,3 +174,5 @@ Django comes with two base classes to build forms:
 
 Integrating a third-party Django tagging application. 
 * **django-taggit** is a reusable application that primarily offers you a Tag model and a manager to easily add tags to any model.
+
+> Tags allow you to recommend users similar topics (topics with same tags)

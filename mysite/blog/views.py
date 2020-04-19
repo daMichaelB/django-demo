@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from taggit.models import Tag
@@ -65,10 +66,18 @@ def post_detail(request, year, month, day, post):
         # in case of GET -> only view the comment form
         comment_form = CommentForm()
 
+    # Create list of similar posts
+    # flat=True creates a response of [1,2,..] instead of [(1,), (2,),...]
+    post_tags_ids = post.tags.values_list("id", flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    # first order by same_tags count. then order by published date
+    similar_posts = similar_posts.annotate(same_tags=Count("tags")).order_by("-same_tags", "publish")[:4]
+
     return render(request, 'blog/post/detail.html', {'post': post,
                                                      'comments': comments,  # to display all comments
                                                      'new_comment': new_comment,  # to display the new comment
-                                                     'comment_form': comment_form})  # to display the comment form again
+                                                     'comment_form': comment_form,  # to display the comment form again
+                                                     'similar_posts': similar_posts})
 
 
 def post_share(request, post_id):
