@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'blog'
 
+# TODO: Check: does Django only define the endpoints here and we have to switch POST/GET/PUT/DELETE inside the view??
 urlpatterns = [
     # post views
     # path('', views.post_list, name='post_list'),

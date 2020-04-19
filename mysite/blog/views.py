@@ -2,8 +2,8 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 
-from .forms import EmailPostForm
-from .models import Post
+from .forms import EmailPostForm, CommentForm
+from .models import Post, Comment
 
 
 class PostListView(ListView):
@@ -38,7 +38,30 @@ def post_detail(request, year, month, day, post):
     """
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month,
                              publish__day=day)
-    return render(request, 'blog/post/detail.html', {'post': post})
+
+    # List of active comments for this post
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    if request.method == 'POST':
+        # a comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # create new comment object but do not save to db yet
+            # great: The save() method is available for ModelForm but not for Form instances, since they are not linked
+            # to any model.
+            new_comment = comment_form.save(commit=False)  # save() creates a new object
+            # assign our current post to the comment
+            new_comment.post = post
+            # Save to the db
+            new_comment.save()
+    else:
+        # in case of GET -> only view the comment form
+        comment_form = CommentForm()
+
+    return render(request, 'blog/post/detail.html', {'post': post,
+                                                     'comments': comments,  # to display all comments
+                                                     'new_comment': new_comment,  # to display the new comment
+                                                     'comment_form': comment_form})  # to display the comment form again
 
 
 def post_share(request, post_id):
