@@ -170,3 +170,7 @@ Django comes with two base classes to build forms:
 * **Form**: Allows you to build standard forms
 * **ModelForm**: Allows you to build forms tied to model instances
 
+# Tags
+
+Integrating a third-party Django tagging application. 
+* **django-taggit** is a reusable application that primarily offers you a Tag model and a manager to easily add tags to any model.

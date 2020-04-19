@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'taggit',
     'blog.apps.BlogConfig',
     'pages.apps.PagesConfig',
     'polls.apps.PollsConfig',
