@@ -1,4 +1,6 @@
 from django import template
+from django.db.models import Count
+
 from ..models import Post
 # register var needs to be defined to be a valid tag library
 # it is used to register this template tag.
@@ -14,3 +16,8 @@ def total_posts():
 def show_latest_posts(count=5):
     latest_posts = Post.published.order_by("-publish")[:count]
     return {'latest_posts': latest_posts}
+
+
+@register.simple_tag
+def get_most_commented_posts(count=5):
+    return Post.published.annotate(total_comments=Count('comments')).order_by('-total_comments')[:count]
