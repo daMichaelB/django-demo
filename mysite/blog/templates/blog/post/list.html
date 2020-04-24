@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}My Blog{% endblock %}
 
@@ -18,7 +19,8 @@
     <p class="date">
       Published {{ post.publish }} by {{ post.author }}
     </p>
-    {{ post.body|truncatewords:30|linebreaks }}
+    <!-- truncatewords_html truncates a string but avoids unclosed html tags -->
+    {{ post.body|markdown|truncatewords_html:30 }}
 
     <p class="tags">
       Tags:

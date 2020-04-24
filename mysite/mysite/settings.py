@@ -28,9 +28,9 @@ DEBUG = True
 # TODO: add production host here once it goes to be released
 ALLOWED_HOSTS = []
 
+SITE_ID = 1  # for sitemap
 
 # Application definition
-
 INSTALLED_APPS = [
     'taggit',
     'blog.apps.BlogConfig',
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
