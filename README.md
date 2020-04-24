@@ -331,3 +331,37 @@ Then migrate the initial tables and create a new superuser:
 python manage.py migrate
 python manage.py createsuperuser
 ```
+
+### Use Django's Postgres App
+
+```python
+INSTALLED_APPS = [
+    ...
+    'django.contrib.postgres',
+]
+```
+
+### Perform Full Text Search
+
+```python
+# on one field (body)
+from blog.models import Post
+Post.objects.filter(body__search='keyword')
+```
+
+```python
+# on several fields (title, body)
+from blog.models import Post
+from django.contrib.postgres.search import SearchVector
+
+Post.objects.annotate(search=SearchVector('title', 'body')).filter(search='keyword')
+```
+
+> If you are searching for more than a few hundred rows, you should define a functional index that matches the search 
+> vector you are using.
+
+## OTHER Full Text Search Engines
+
+You may want to use a full-text search engine other than from PostgreSQL. If you want to use Solr or Elasticsearch, 
+you can integrate them into your Django project using Haystack. Haystack is a Django application that works as an 
+abstraction layer for multiple search engines.

@@ -15,4 +15,5 @@ urlpatterns = [
     # see also: https://docs.djangoproject.com/en/3.0/topics/http/urls/#path-converters.
     path('<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_detail, name='post_detail'),
     path('<int:post_id>/share/', views.post_share, name='post_share'),
+    path('search/', views.post_search, name='post_search'),
 ]
