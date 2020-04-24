@@ -3,3 +3,6 @@ Django
 # blog application
 django_taggit
 markdown
+
+# postgresql
+psycopg2-binary

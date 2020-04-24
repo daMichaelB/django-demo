@@ -284,3 +284,50 @@ http://example.com/blog/2020/4/19/another-guitar-post/
 > We can adjust it in the admin-dashboard under **Sites**.
 
 > Here, you can set the domain or host to be used by the site's framework and the applications that depend on it.
+
+# PostgreSQL
+
+We are currently using SQLite for your blog project. 
+This is sufficient for development purposes. 
+However, for a production environment, you will need a more powerful database, 
+such as PostgreSQL, MariaDB, MySQL, or Oracle.
+
+## Full text search
+
+> Although Django is a database-agnostic web framework, it provides a module that supports part of the rich feature
+> set offered by PostgreSQL, which is not offered by other databases that Django supports.
+
+### Setup local Postgres with docker 
+
+We will work with a docker image of Postgres:
+
+```bash
+docker pull postgres
+```
+
+```bash
+# start the image
+docker run --name docker-postgres -e POSTGRES_USER=blog -e POSTGRES_PASSWORD=blogpassword -e POSTGRES_DB=blog -v my_dbdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+```
+
+### Connect Django to the Postgres docker DB
+
+```python
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "blog"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "blogpassword"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
+    }
+}
+```
+
+Then migrate the initial tables and create a new superuser:
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
