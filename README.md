@@ -176,3 +176,58 @@ Integrating a third-party Django tagging application.
 * **django-taggit** is a reusable application that primarily offers you a Tag model and a manager to easily add tags to any model.
 
 > Tags allow you to recommend users similar topics (topics with same tags)
+
+# Custom Template Tags
+
+Django offers a variety of template tags, such as `{% if %}` or `{% block %}`.
+Here is a list of all available template tags: https://docs.djangoproject.com/en/3.0/ref/templates/builtins/.
+
+Django provides the following helper functions that allow you to create your own template tags in an easy manner:
+ * **simple_tag**: Processes the data and returns a string
+ * **inclusion_tag**: Processes the data and returns a rendered template
+
+### Example
+
+Create a folder `templatetags` inside your app folder. 
+
+```python
+#blog_tags.py
+from django import template
+from ..models import Post
+register = template.Library()
+
+
+@register.simple_tag
+def total_posts():
+    return Post.published.count()
+```
+
+Now append the following tag inside your `*.html`:
+```
+{% load blog_tags %}
+```
+
+And now we can use our **custom template** inside the `html`:
+
+```{% total posts %}```
+
+> The power of custom template tags is that you can process any data and add it to any template regardless of the 
+> view executed.
+
+# Custom Template Filters
+
+Django has a variety of built-in template filters that allow you to alter variables in templates. 
+These are Python functions that take one or two parameters, 
+the value of the variable that the filter is applied to, and an optional argument. 
+They return a value that can be displayed or treated by another filter.
+
+```python
+# Filter withouth argument
+{{ variable |my_filer }}
+
+# Filter with argument
+{{ variable |my_filter:"foo" }}
+
+# Apply many filters one after another
+{{ variable |filter1:"foo"|filter2  }}
+```
