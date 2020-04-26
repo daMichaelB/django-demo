@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Tells Django which URL to redirect the user to after a successful login if no next parameter is present in the request
+LOGIN_REDIRECT_URL = 'dashboard'
+# The URL to redirect the user to log in (for example, views using the login_required decorator)
+LOGIN_URL = 'login'
+# The URL to redirect the user to log out
+LOGOUT_URL = 'logout'
 
 # Application definition
 

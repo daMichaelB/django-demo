@@ -27,3 +27,22 @@ Note the difference between `authenticate()` and `login()`:
 
 ## Django authentication views
 
+Django includes several forms and views in the authentication framework that you can use right away.
+Instead of coding those views with the User / Group and Permission model we can use those default Views:
+
+* LoginView --> default template has to be in `templates/registration/login.html`
+* LogoutView
+* PasswordChangeView
+* PasswordResetView
+* ...
+
+### Default view folder
+In the folder `templates/registration/` django expects to find our views.
+
+### `login_required` Decorator
+
+We can decorate views with the `login_required` decorator of the authentication framework. 
+The `login_required` decorator checks whether the current user is authenticated.
+
+> if the user is not authenticated, it redirects the user to the login URL with the originally requested URL as a 
+>GET parameter named `next` !!
