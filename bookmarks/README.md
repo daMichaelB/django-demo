@@ -23,7 +23,7 @@ Note the difference between `authenticate()` and `login()`:
 
 **Create Demo-User**
 * name: testuser
-* pw: xAJ4MuWecge3bbA
+* pw: K8sVnCNsmRzzwWW
 
 ## Django authentication views
 
