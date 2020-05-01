@@ -46,3 +46,25 @@ The `login_required` decorator checks whether the current user is authenticated.
 
 > if the user is not authenticated, it redirects the user to the login URL with the originally requested URL as a 
 >GET parameter named `next` !!
+
+# Serving media and static files
+
+Add the following to the `settings.py`
+```python
+# To enable Django to serve media files uploaded by users with the development server
+MEDIA_URL = '/media/'  # base URL used to serve the media files uploaded by users
+# local path. You build the path dynamically relative to your project path to make your code more generic.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+```
+
+Now tell the Django development server to serve media files during development.
+
+Extend the `urls.py`
+
+```python
+# only add this url in debug mode
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+> Never serve your static files with Django in a production environment.

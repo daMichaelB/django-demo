@@ -6,3 +6,6 @@ markdown
 
 # postgresql
 psycopg2-binary
+
+# bookmarks
+Pillow

@@ -21,4 +21,5 @@ urlpatterns = [
     # all of the above is included in this file:
     path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
+    path('edit/', views.edit, name='edit'),
 ]

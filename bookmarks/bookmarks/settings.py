@@ -128,3 +128,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# To enable Django to serve media files uploaded by users with the development server
+MEDIA_URL = '/media/'  # base URL used to serve the media files uploaded by users
+# local path. You build the path dynamically relative to your project path to make your code more generic.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
