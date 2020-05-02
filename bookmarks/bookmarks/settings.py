@@ -38,6 +38,7 @@ LOGOUT_URL = 'logout'
 
 INSTALLED_APPS = [
     #Django looks for templates by order of application appearance in the INSTALLED_APPS setting.
+    'images.apps.ImagesConfig',
     'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',

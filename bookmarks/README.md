@@ -85,3 +85,22 @@ messages.error(request, 'Something went wrong')
         .debug()
         .add_message()
 ```
+
+# Database
+
+## Create Indexes for fast search
+
+```python
+Database indexes improve query performance. Consider setting db_index=True for fields that you
+frequently query using filter(), exclude(), or order_by(). ForeignKey fields or fields with
+unique=True imply the creation of an index. You can also use Meta.index_together or Meta.indexes
+to create indexes for multiple fields.
+```
+
+## Many to Many relationship
+
+```python
+# many to many relationship: one user can like several images and one images can be liked by several users
+# related_name allows to access the image from the user-object
+users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
+```
