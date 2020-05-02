@@ -365,3 +365,21 @@ Post.objects.annotate(search=SearchVector('title', 'body')).filter(search='keywo
 You may want to use a full-text search engine other than from PostgreSQL. If you want to use Solr or Elasticsearch, 
 you can integrate them into your Django project using Haystack. Haystack is a Django application that works as an 
 abstraction layer for multiple search engines.
+
+# Running the development server through HTTPS
+The Django development server is not able to serve your site through HTTPS, since that is not its intended use
+In order get that, we use the **RunServerPlus** from *django extensions*.
+
+Install packages 
+```bash 
+pip install django-extensions
+pip install werkzeug
+pip install pyOpenSSL
+```
+
+Start the server
+
+```bash
+python manage.py runserver_plus --cert-file cert.crt
+```
+
