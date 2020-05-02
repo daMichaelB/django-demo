@@ -68,3 +68,20 @@ if settings.DEBUG:
 ```
 
 > Never serve your static files with Django in a production environment.
+
+# Messages Framework
+
+Inform the user with messages. It is located at: `django.contrib.messages`.
+Messages are stored in a cookie by default (falling back to session storage).
+
+They are displayed in the next request from the user. We can use the following functions:
+
+```python
+from django.contrib import messages
+messages.error(request, 'Something went wrong')
+        .success()
+        .info()
+        .warning()
+        .debug()
+        .add_message()
+```
