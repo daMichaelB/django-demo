@@ -104,3 +104,16 @@ to create indexes for multiple fields.
 # related_name allows to access the image from the user-object
 users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
 ```
+
+# Bookmarklets
+
+> A **bookmarklet** is a bookmark stored in a web browser that contains JavaScript code to extend the browser's 
+> functionality. When you click on the bookmark, the JavaScript code is executed on the website being displayed 
+> in the browser. This is very useful for building tools that interact with other websites.
+
+Since the JavaScript code will be stored as a bookmark, you will not be able to update it later. 
+This is an important drawback that you can solve by implementing a launcher script to load the actual 
+JavaScript bookmarklet from a URL. Your users will save this launcher script as a bookmark, and you will be able to 
+update the code of the bookmarklet at any time. This is the approach that you will take to build your bookmarklet.
+
+See: bookmarklet_launcher.js

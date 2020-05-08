@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 from django.conf import settings
@@ -30,3 +31,10 @@ class Image(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        """
+        Canonical URLs for models
+        compare with our URL definition to GET a specific post
+        """
+        return reverse('images:detail', args=[self.id, self.slug])
