@@ -116,7 +116,7 @@ This is an important drawback that you can solve by implementing a launcher scri
 JavaScript bookmarklet from a URL. Your users will save this launcher script as a bookmark, and you will be able to 
 update the code of the bookmarklet at any time. This is the approach that you will take to build your bookmarklet.
 
-See: bookmarklet_launcher.js
+See: bookmarklet_launcher.js (jQuery)
 
 # Thumbnails
 
@@ -137,3 +137,58 @@ INSTALLED_APPS = [
 The **easy-thumbnails** application offers you different ways to define image thumbnails. 
 The application provides a `{% thumbnail %}` template tag to generate thumbnails in templates and a custom 
 `ImageField` if you want to define thumbnails in your models. 
+
+# AJAX actions with jQuery
+
+## Ajax Definition
+
+**AJAX** comes from Asynchronous JavaScript and XML, encompassing a group of techniques to make 
+asynchronous HTTP requests. 
+It consists of sending and retrieving data from the server asynchronously, without reloading the whole page. 
+
+> Instead of requesting a whole template the response for the request can only be a small JSON/Text
+
+Despite the name, XML is not required. You can send or retrieve data in other formats, such as JSON, HTML, or 
+plain text.
+
+> You will need to add the AJAX functionality to your image detail template. In order to use jQuery in your templates, 
+> you will include it in the base.html template of your project first.
+
+Add it to the template:
+
+```
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      {% block domready %}
+      {% endblock %}
+    });
+  </script>
+```
+
+You load the jQuery framework from Google's CDN. You can also download jQuery from https://jquery.com/ and 
+add it to the static directory of your application instead.
+
+> we add a django template block called domready --> here templates (that extend base.html) can inject JS
+
+You add a `<script>` tag to include JavaScript code. `$(document).ready()` is a jQuery function that takes a 
+handler that is executed when the Document Object Model (DOM) hierarchy has been fully constructed. The DOM is 
+created by the browser when a web page is loaded, and it is constructed as a tree of objects. By including your 
+code inside this function, you will make sure that all HTML elements that you are going to interact with are loaded 
+in the DOM. Your code will only be executed once the DOM is ready.
+
+> The examples in this chapter include JavaScript code in Django templates. 
+> The preferred way to include JavaScript code is by loading .js files, which are served as static files, 
+> especially when they are large scripts.
+
+## CSRF with AJAX
+
+Once CSRF protaction is active, Django checks for a CSRF token in all `POST` requests. 
+Until now we used the `{% csrf_token %}` whenever we sent `POST` requests.
+
+However, it is a bit inconvenient for AJAX requests to pass the CSRF token as POST data with every POST request. 
+Therefore, Django allows you to set a custom X-CSRFToken header in your AJAX requests with the value of the CSRF token.
+
+In order to include the token in all requests, you need to take the following steps:
+* Retrieve the CSRF token from the csrftoken cookie, which is set if CSRF protection is active
+* Send the token in the AJAX request using the X-CSRFToken header

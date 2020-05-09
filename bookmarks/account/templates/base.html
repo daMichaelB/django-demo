@@ -45,5 +45,31 @@
     {% block content %}
     {% endblock %}
   </div>
+
+  <!-- load jquery, we could download also and add it to static files -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- load lightweight library to handle cookies -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+  <script>
+    /* for POST requests we have to add the csrftoken for django to accept the request */
+    var csrftoken = Cookies.get('csrftoken');
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+    $(document).ready(function(){
+      /* we add a django template block called domready --> here templates (that extend base.html) can inject JS */
+      {% block domready %}
+      {% endblock %}
+    });
+  </script>
+
 </body>
 </html>
