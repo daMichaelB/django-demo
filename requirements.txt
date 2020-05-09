@@ -10,6 +10,7 @@ psycopg2-binary
 # bookmarks
 Pillow
 certifi # Certifi is a collection of root certificates for validating the trustworthiness of SSL/TLS certificates.
+easy-thumbnails
 
 # runserver_plus
 django-extensions

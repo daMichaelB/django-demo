@@ -117,3 +117,23 @@ JavaScript bookmarklet from a URL. Your users will save this launcher script as 
 update the code of the bookmarklet at any time. This is the approach that you will take to build your bookmarklet.
 
 See: bookmarklet_launcher.js
+
+# Thumbnails
+
+Install the package and add it to `settings.py`
+
+```bash 
+pip install easy-thumbnails==2.7
+```
+
+```python 
+# settings.py
+INSTALLED_APPS = [    
+    # ...    
+    'easy_thumbnails',
+]
+```
+
+The **easy-thumbnails** application offers you different ways to define image thumbnails. 
+The application provides a `{% thumbnail %}` template tag to generate thumbnails in templates and a custom 
+`ImageField` if you want to define thumbnails in your models. 
