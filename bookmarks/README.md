@@ -192,3 +192,7 @@ Therefore, Django allows you to set a custom X-CSRFToken header in your AJAX req
 In order to include the token in all requests, you need to take the following steps:
 * Retrieve the CSRF token from the csrftoken cookie, which is set if CSRF protection is active
 * Send the token in the AJAX request using the X-CSRFToken header
+
+## AJAX Paginatino with infinite scroll
+
+Infinite scroll is achieved by loading the next results automatically when the user scrolls to the bottom of the page.
