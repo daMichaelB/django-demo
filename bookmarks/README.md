@@ -196,3 +196,60 @@ In order to include the token in all requests, you need to take the following st
 ## AJAX Paginatino with infinite scroll
 
 Infinite scroll is achieved by loading the next results automatically when the user scrolls to the bottom of the page.
+
+# FOLLOWING System 
+
+> Creating many-to-many relationships with an intermediary model
+
+```python
+class Contact(models.Model):
+    user_from = models.ForeignKey('auth.User',
+                                  related_name='rel_from_set',
+                                  on_delete=models.CASCADE)
+    user_to = models.ForeignKey('auth.User',
+                                related_name='rel_to_set',
+                                on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True,
+                                   db_index=True)
+```
+
+And now connect the **Django User** Model to it:
+
+```python
+from django.contrib.auth import get_user_model
+# Add following field to User dynamically
+user_model = get_user_model()
+user_model.add_to_class('following',
+                        models.ManyToManyField('self',
+                            through=Contact,
+                            related_name='followers',
+                            symmetrical=False)) # (if I follow you, it doesn't mean that you automatically follow me).
+```
+
+## `get_absolute_url()` trick
+
+Given a specific **URL** that we want to use as *absolute url* of our model. Example:
+
+```python
+path('users/<username>/', views.user_detail, name='user_detail'),
+```
+
+You will use the `user_detail` URL pattern to generate the canonical URL for users.
+* Add the function `get_absolute_url()` by yourself
+* Use `ABSOLUTE_URL_OVERRIDES`
+
+```python
+# settings.py
+ABSOLUTE_URL_OVERRIDES = {
+    # instead of writting our own get_absolute_url() method, we can create it here
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
+```
+
+**Example:**
+
+```python
+user = User.objects.latest('id')
+str(user.get_absolute_url())
+'/account/users/testuser/'
+```
